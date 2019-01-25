@@ -1,0 +1,41 @@
+* {
+    text-align: center;
+    background-color: #000;
+}
+input, select{
+    background-color: #333;
+    outline: none;
+    margin: 25px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 0px 0px 0px 0px;
+}
+#authDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+::placeholder {
+    color: #fff;
+}
+#stats {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+#liveIndicator {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.off {
+    background-color: #333;
+}
+.on {
+    background-color: #f00;
+}

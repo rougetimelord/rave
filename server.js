@@ -89,7 +89,7 @@ broadcastChannel.on('connection', (socket) => {
         }
         else if(!currentBroadcast) {
             currentBroadcast = socket.id;
-            listenChannel.emit('stream', packet.payload);
+            listenChannel.emit('chunk', packet.payload);
         }
         else {
             console.log('refused packet');

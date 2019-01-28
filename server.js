@@ -78,7 +78,7 @@ backEndChannel.on('connection', (socket) => {
 
             let hashJSON = JSON.parse(data);
             
-            if(!"hash" in hashJSON && !"salt" in hashJSON) {
+            if(!("hash" in hashJSON) && !("salt" in hashJSON)) {
                 fs.writeFile('hash.json', JSON.stringify({'hash': hash, 'salt': salt}), (err) => {
                     if(err){
                         console.log('Oops');
@@ -146,19 +146,15 @@ app.get("/", (req, resp) => {
     resp.sendFile(__dirname + '/views/play.html');
 });
 
-app.get("/auth", (req, resp) => {
-    resp.sendFile(__dirname + '/views/backend.html');
-});
-
-app.get("/stream", (req, resp) => {
-    resp.sendFile(__dirname + "/views/backend.html");
-});
-
 app.get("/backend", (req, resp) => {
     resp.sendFile(__dirname + "/views/backend.html");
 });
 
 app.get("/play", (req, resp) => {
+    resp.sendFile(__dirname + "/views/play.html");
+});
+
+app.get("/listen", (req, resp) => {
     resp.sendFile(__dirname + "/views/play.html");
 });
 

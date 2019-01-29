@@ -1,17 +1,22 @@
 var socket = io('/backend');
 
+//Sets up password field
 var input = document.createElement('input');
 input.type = 'password';
 input.placeholder = 'password';
 
+//Sets up the button to submit the password
 var button = document.createElement('input');
 button.type = 'button';
 
+//Set up div for auth input
 var authDiv = document.createElement('div');
 authDiv.appendChild(input);
 authDiv.appendChild(button);
 authDiv.id = "authDiv";
 
+/* Handles password setup
+*/
 socket.on('setup', ()=>{
     button.value = "set pass";
     document.body.appendChild(authDiv);
@@ -22,6 +27,8 @@ socket.on('setup', ()=>{
     });
 });
 
+/* Handles password
+*/
 socket.on('auth', ()=>{
     button.value = "login"
     document.body.appendChild(authDiv);
@@ -40,11 +47,20 @@ socket.on('auth', ()=>{
 
 var streamOn = 0;
 
+/**
+ * Checks for GUM support
+ */
 var gumCheck = () => {
     return !!(navigator.mediaDevices.getUserMedia && navigator.mediaDevices);
 }
 
+/**
+ * List all of the inputs in the dropdown
+ * 
+ * @param {MediaDeviceInfo} devices 
+ */
 var listDevices = (devices) => {
+    
     let select = document.getElementById('sources');
     for(let i = 0; i < devices.length; i++) {
         let device = devices[i];
@@ -57,11 +73,23 @@ var listDevices = (devices) => {
     }
 }
 
+/**
+ * The call back that gets called after getUserMedia resolves.
+ * 
+ * This is super janky, I definitely want to move to not using a 
+ * ScriptProcessor and only collecting information every second or 
+ * so. Might move over to the MediaRecorder API.
+ * 
+ * @param {MediaStream} stream 
+ */
 var gotStream = (stream) => {
     let ctx = new AudioContext();
+    //Create an input stream.
     let input = ctx.createMediaStreamSource(stream);
+    //Create the actual recorder.
     let recorder = ctx.createScriptProcessor(16384, 2, 2);
 
+    //Send off the data ever 16384 samples
     recorder.onaudioprocess= (e) => {
         if(streamOn) {
             let left = e.inputBuffer.getChannelData(0);
@@ -74,10 +102,14 @@ var gotStream = (stream) => {
         }
     }
 
+    //Connect everything, recorder has to connected for some reason.
     input.connect(recorder);
     recorder.connect(ctx.destination);
 }
 
+/**
+ * Gets the media stream and calls gotStream.
+ */
 var getStream = () => {
     let constraints = {
         audio: {
@@ -94,14 +126,21 @@ var getStream = () => {
     navigator.mediaDevices.getUserMedia(constraints).then(gotStream).catch(errHandler);
 }
 
+//Check GUM then list all of the devices
 if(gumCheck()){
     navigator.mediaDevices.enumerateDevices().then(listDevices).catch(errHandler);
 }
 
+/**
+ * Handles errors.
+ * 
+ * @param {*} err 
+ */
 var errHandler = (err) => {
     console.log("error: " + err);
 }
 
+//Does everything (like handling stream status)
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("streamBtn").addEventListener("click", (e) => {
         e.preventDefault();

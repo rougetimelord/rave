@@ -1,14 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 * {
     text-align: center;
-    background-color: #000;
+    background-color: #000000;
+    font-family: 'Roboto', sans-serif;;
 }
+
 input, select{
-    background-color: #333;
+    font-size: 1.5em;
+    background-color: #333333;
     outline: none;
     margin: 25px;
-    color: #fff;
-    border: 2px solid #fff;
-    border-radius: 0px 0px 0px 0px;
+    color: #ffffff;
+    border: 1px solid #444444;
+    border-radius: 5px 0px 5px 0px;
+}
+input::active{
+    background-color: #666666;
+}
+select option {
+    background: #333333; 
+    color: #ffffff; 
+    box-shadow: inset 20px 20px #666666;
+} 
+  
+div {
+    transition: opacity .1s linear;
 }
 .hidden{
     opacity: 0;
@@ -20,7 +37,7 @@ input, select{
     transform: translate(-50%, -50%);
 }
 ::placeholder {
-    color: #fff;
+    color: #ffffff;
 }
 #stats {
     position: absolute;
@@ -37,8 +54,13 @@ input, select{
     height: 50px;
 }
 .off {
-    background-color: #333;
+    background-color: #ffffff;
 }
 .on {
-    background-color: #f00;
+    animation: 1s infinite alternate active;
+}
+
+@keyframes active {
+    from {background-color: #ffffff}
+    to {background-color: #ff0000}
 }

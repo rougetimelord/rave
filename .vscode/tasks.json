@@ -19,7 +19,7 @@
         {
             "label": "Sass Compile",
             "type": "shell",
-            "command": "node-sass ${file}.scss ${file}.css",
+            "command": "node-sass ${file} ${fileDirname}\\${fileBasenameNoExtension}.css",
             "group": {
                 "kind": "build",
                 "isDefault": true

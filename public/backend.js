@@ -86,25 +86,53 @@ var gotStream = (stream) => {
     let ctx = new AudioContext();
     //Create an input stream.
     let input = ctx.createMediaStreamSource(stream);
-    //Create the actual recorder.
-    let recorder = ctx.createScriptProcessor(16384, 2, 2);
+    
+    if(ctx.audioWorklet) {
+        ctx.audioWorklet.addModule('audioProcessor.js').then(() => {
+            let recorder = new AudioWorkletNode(ctx, 'streamGetter');
 
-    //Send off the data ever 16384 samples
-    recorder.onaudioprocess= (e) => {
-        if(streamOn) {
-            let left = e.inputBuffer.getChannelData(0);
-            let right = e.inputBuffer.getChannelData(1);
-            let payload = {
-                'left':  left.buffer,
-                'right': right.buffer
-            };
-            socket.emit('stream', payload);
-        }
+            let chunks = [[],[]]
+            recorder.port.onmessage = (e) => {
+                chunks[0].push(e.left);
+                chunks[1].push(e.right);
+
+                if(chunks[0].length > 172){
+                    console.log('sending packet');
+
+                    let payload = {
+                        'left':  new Float32Array(chunks[0]).buffer,
+                        'right': new Float32Array(chunks[1]).buffer
+                    };
+                    socket.emit('stream', payload);
+                    chunks = [[],[]];
+                }
+            }
+
+            input.connect(recorder);
+            recorder.connect(ctx.destination);
+        });
     }
+    else {
+        //Create the actual recorder.
+        let recorder = ctx.createScriptProcessor(16384, 2, 2);
 
-    //Connect everything, recorder has to connected for some reason.
-    input.connect(recorder);
-    recorder.connect(ctx.destination);
+        //Send off the data ever 16384 samples
+        recorder.onaudioprocess= (e) => {
+            if(streamOn) {
+                let left = e.inputBuffer.getChannelData(0);
+                let right = e.inputBuffer.getChannelData(1);
+                let payload = {
+                    'left':  left.buffer,
+                    'right': right.buffer
+                };
+                socket.emit('stream', payload);
+            }
+        }
+
+        //Connect everything, recorder has to connected for some reason
+        input.connect(recorder);
+        recorder.connect(ctx.destination);
+    }
 }
 
 /**

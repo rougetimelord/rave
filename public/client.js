@@ -2,7 +2,14 @@ var socket = io('/play');
 
 
 var main = () => {
-    document.body.removeEventListener("click", main);
+    console.log('hit main');
+    document.removeEventListener("click", main);
+
+    let remove = document.getElementsByClassName('clickThrough');
+    for(let i = 0; i < remove.length; i++) {
+        remove[i].classList.add('hidden');
+    }
+
     var ctx = new AudioContext();
     var chunks = []
     var nextPlay = 0;
@@ -41,5 +48,5 @@ var main = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.body.addEventListener("click", main);
+    document.addEventListener("click", main);
 });

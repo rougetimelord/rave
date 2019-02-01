@@ -3,12 +3,6 @@ var socket = io('/play');
 
 var main = () => {
     console.log('hit main');
-    document.removeEventListener("click", main);
-
-    let remove = document.getElementsByClassName('clickThrough');
-    for(let i = 0; i < remove.length; i++) {
-        remove[i].classList.add('hidden');
-    }
 
     var ctx = new AudioContext();
     var chunks = []
@@ -32,21 +26,37 @@ var main = () => {
 
         chunks.push(buffer);
 
-        if (chunks. length >= 25) {
+        if (chunks.length >= 25 && ctx.state === 'running') {
             let bufferSource = ctx.createBufferSource()
 
             bufferSource.buffer = chunks.shift();
 
             bufferSource.connect(ctx.destination);
-
+            
             bufferSource.start(ctx.currentTime + nextPlay);
 
             currentPlay = ctx.currentTime;
             nextPlay = buffer.duration;
         }
+
+        return ctx;
     });
 };
 
+let clickListener = (ctx) => {
+    return () => {
+        document.removeEventListener("click", clickListener);
+
+        let remove = document.getElementsByClassName('clickThrough');
+        for(let i = 0; i < remove.length; i++) {
+            remove[i].classList.add('hidden');
+        }
+
+        ctx.resume();
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener("click", main);
+    let ctx = main();
+    document.addEventListener("click", clickListener(ctx));
 });

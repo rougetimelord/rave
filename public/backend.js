@@ -96,7 +96,7 @@ var gotStream = (stream) => {
                 chunks[0].push(e.left);
                 chunks[1].push(e.right);
 
-                if(chunks[0].length > 172){
+                if(chunks[0].length > 172 && streamOn){
                     console.log('sending packet');
 
                     let payload = {

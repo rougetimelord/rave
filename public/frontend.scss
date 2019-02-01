@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400i|Roboto');
 
 * {
     text-align: center;
     background-color: #000000;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
+    margin: 0;
+    padding: 0;
 }
 
 .text {
@@ -18,7 +20,12 @@
     transform: translate(-50%, -50%);
 }
 
-.clickThrough {
+#tagline {
+    font-family: 'Raleway', sans-serif;
+    font-style: italic
+}
+
+.clickThrough, .clickIn{
     transition: opacity 1s ease-in-out .1s;
 }
 
@@ -26,7 +33,39 @@
     opacity: 0;
 }
 
-.logo {
-    font-size: 2.5em;
+.hide{
+    animation: hide 1s linear 1s;
+}
+
+@keyframes hide {
+    from{visibility: visible;}
+    to{visibility: hidden;}
+}
+
+.logo.text{
+    font-size: 3em;
     padding-bottom: .35em;
+}
+
+#control {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0.75em 0 0 0;
+    border-style: solid;
+    height: 0em;
+    width: 0em;
+    &.stopBtn{
+        border-width: 1em;
+        border-color: #ffffff;
+    }
+    &.playBtn{
+        border-width: 1em 0 1em 1.73em;
+        border-color: transparent transparent transparent #ffffff;
+    }
+}
+
+#logo {
+    height: 60vh;
+    width: auto;
 }

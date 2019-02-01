@@ -1,8 +1,7 @@
 var socket = io('/play');
-
+var refuse = false;
 
 var main = () => {
-    console.log('hit main');
 
     var ctx = new AudioContext();
     var chunks = []
@@ -10,6 +9,11 @@ var main = () => {
     var currentPlay = 0;
 
     socket.on('chunk', (data) => {
+        if(refuse) {
+            chunks = [];
+            return;
+        }
+
         console.log('got chunk');
 
         let channel0 = new Float32Array(data.left);
@@ -33,15 +37,29 @@ var main = () => {
 
             bufferSource.connect(ctx.destination);
             
-            bufferSource.start(ctx.currentTime + nextPlay);
+            bufferSource.start(currentPlay + nextPlay);
 
             currentPlay = ctx.currentTime;
             nextPlay = buffer.duration;
         }
-
-        return ctx;
     });
+    return ctx;
 };
+
+let stopListener = (ctx) => {
+    return () => {
+        refuse = !refuse;
+        document.getElementById('control').classList.add(
+            (refuse) ? 'playBtn' : 'stopBtn');
+        document.getElementById('control').classList.remove(
+            (refuse) ? 'stopBtn' : 'playBtn')
+        if(refuse){
+            ctx.suspend();
+        } else {
+            ctx.resume();
+        }
+    }
+}
 
 let clickListener = (ctx) => {
     return () => {
@@ -49,14 +67,20 @@ let clickListener = (ctx) => {
 
         let remove = document.getElementsByClassName('clickThrough');
         for(let i = 0; i < remove.length; i++) {
-            remove[i].classList.add('hidden');
+            remove[i].classList.add('hidden', 'hide');
+        }
+
+        let add = document.getElementsByClassName('clickIn');
+        for(let i = 0; i < add.length; i++) {
+            add[i].classList.remove('hidden');
         }
 
         ctx.resume();
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
     let ctx = main();
-    document.addEventListener("click", clickListener(ctx));
+    document.addEventListener('click', clickListener(ctx));
+    document.getElementById('control').addEventListener('click', stopListener(ctx));
 });

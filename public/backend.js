@@ -209,4 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
             streamOn = false;
         }
     });
-})
+});
+
+socket.on('stats', (data) => {
+    document.getElementById('listeners').innerText = data;
+});

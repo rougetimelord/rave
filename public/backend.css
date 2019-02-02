@@ -2,8 +2,11 @@
 * {
   text-align: center;
   background-color: #000000;
-  font-family: 'Roboto', sans-serif;
-}
+  font-family: 'Roboto', sans-serif; }
+
+.text {
+  color: #ffffff;
+  font-size: 1.5em; }
 
 input, select {
   font-size: 1.5em;
@@ -12,95 +15,53 @@ input, select {
   margin: 25px;
   color: #ffffff;
   border: 1px solid #444444;
-  border-radius: 5px 0px 5px 0px;
-}
+  border-radius: 5px 0px 5px 0px; }
 
 input::active {
-  background-color: #666666;
-}
+  background-color: #666666; }
 
 select option {
   background: #333333;
   color: #ffffff;
-  -webkit-box-shadow: inset 20px 20px #666666;
-          box-shadow: inset 20px 20px #666666;
-}
+  box-shadow: inset 20px 20px #666666; }
 
 div {
-  -webkit-transition: opacity .1s linear;
-  transition: opacity .1s linear;
-}
+  transition: opacity .1s linear; }
 
 .hidden {
-  opacity: 0;
-}
+  opacity: 0; }
 
 #authDiv {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-::-webkit-input-placeholder {
-  color: #ffffff;
-}
-
-:-ms-input-placeholder {
-  color: #ffffff;
-}
-
-::-ms-input-placeholder {
-  color: #ffffff;
-}
+  transform: translate(-50%, -50%); }
 
 ::placeholder {
-  color: #ffffff;
-}
+  color: #ffffff; }
 
 #stats {
   position: absolute;
   top: 20%;
   left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-}
+  transform: translate(-50%, 0%); }
 
 #liveIndicator {
   position: relative;
   left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
   border-radius: 50%;
   width: 50px;
-  height: 50px;
-}
+  height: 50px; }
 
 .off {
-  background-color: #ffffff;
-}
+  background-color: #ffffff; }
 
 .on {
-  -webkit-animation: 1s infinite alternate active;
-          animation: 1s infinite alternate active;
-}
-
-@-webkit-keyframes active {
-  from {
-    background-color: #ffffff;
-  }
-  to {
-    background-color: #ff0000;
-  }
-}
+  animation: 1s infinite alternate active; }
 
 @keyframes active {
   from {
-    background-color: #ffffff;
-  }
+    background-color: #ffffff; }
   to {
-    background-color: #ff0000;
-  }
-}
-/*# sourceMappingURL=backend.css.map */
+    background-color: #ff0000; } }

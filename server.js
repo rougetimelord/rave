@@ -55,6 +55,7 @@ backEndChannel.on('connection', (socket) => {
             if(generatedHash === hashJSON.hash) {
                 console.log('correct password');
                 authorized[socket.id] = true;
+                socket.emit('stats', currentListeners)
                 fn(true);
                 return;
             } else {
@@ -137,8 +138,11 @@ listenChannel.on('connect', (socket) => {
     currentListeners++;
     console.log('total listeners: ' + totalListeners + ' current listeners: ' + currentListeners);
 
+    backEndChannel.emit('stats', currentListeners);
+
     socket.on('disconnect', () => {
         currentListeners--;
+        backEndChannel.emit('stats', currentListeners);
     })
 });
 
@@ -158,6 +162,8 @@ app.get("/listen", (req, resp) => {
     resp.sendFile(__dirname + "/views/play.html");
 });
 
-var listener = http.listen(env.PORT, () => {
-    console.log("server listening on " + listener.address().port);
-})
+var listener = http.listen(env.PORT,
+    () => {
+        console.log("server listening on " + listener.address().address + ":" + listener.address().port);
+    }
+)

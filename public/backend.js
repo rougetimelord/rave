@@ -73,6 +73,21 @@ var listDevices = (devices) => {
     }
 }
 
+var make32array = (arrays) => {
+    let total = 0;
+    for(let arr of arrays){
+        total += arr.length;
+    }
+
+    let result = new Float32Array(total);
+    let offset = 0;
+    for(let arr of arrays) {
+        result.set(arr, offset);
+        offset += arr.length;
+    }
+    return result;
+}
+
 /**
  * The call back that gets called after getUserMedia resolves.
  * 
@@ -93,15 +108,14 @@ var gotStream = (stream) => {
 
             let chunks = [[],[]]
             recorder.port.onmessage = (e) => {
-                chunks[0].push(e.left);
-                chunks[1].push(e.right);
+                chunks[0].push(e.data.left);
+                chunks[1].push(e.data.right);
 
                 if(chunks[0].length > 172 && streamOn){
                     console.log('sending packet');
-
                     let payload = {
-                        'left':  new Float32Array(chunks[0]).buffer,
-                        'right': new Float32Array(chunks[1]).buffer
+                        'left':  make32array(chunks[0]),
+                        'right': make32array(chunks[1])
                     };
                     socket.emit('stream', payload);
                     chunks = [[],[]];

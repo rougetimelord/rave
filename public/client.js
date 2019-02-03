@@ -16,8 +16,15 @@ var main = () => {
 
         console.log('got chunk');
 
-        let channel0 = new Float32Array(data.left);
-        let channel1 = new Float32Array(data.right);
+        let channel0, channel1;
+
+        if(typeof data.left == 'object'){
+            channel0 = new Float32Array(Object.values(data.left));
+            channel1 = new Float32Array(Object.values(data.left));
+        } else {
+            channel0 = Float32Array.from(data.left);
+            channel1 = Float32Array.from(data.right);
+        }
 
         let buffer = ctx.createBuffer(2, channel0.length, 44000)
 

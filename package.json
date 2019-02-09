@@ -1,6 +1,6 @@
 {
   "name": "rave.",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "A node server that streams.",
   "main": "server.js",
   "scripts": {

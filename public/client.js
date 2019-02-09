@@ -70,7 +70,7 @@ let stopListener = (ctx) => {
 
 let clickListener = (ctx) => {
     return () => {
-        document.removeEventListener("click", clickListener);
+        document.removeEventListener('click', clickListener);
 
         let remove = document.getElementsByClassName('clickThrough');
         for(let i = 0; i < remove.length; i++) {
@@ -87,6 +87,11 @@ let clickListener = (ctx) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    let removeStyle = document.getElementsByClassName('hidden');
+    for(let i = 0; i < removeStyle.length; i++) {
+        removeStyle[i].removeAttribute('style');
+    }
+
     let ctx = main();
     document.addEventListener('click', clickListener(ctx));
     document.getElementById('control').addEventListener('click', stopListener(ctx));

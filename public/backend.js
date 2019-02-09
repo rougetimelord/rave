@@ -228,3 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
 socket.on('stats', (data) => {
     document.getElementById('listeners').innerText = data;
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    let removeStyle = document.getElementsByClassName('hidden');
+    for(let i = 0; i < removeStyle.length; i++) {
+        removeStyle[i].removeAttribute('style');
+    }
+});

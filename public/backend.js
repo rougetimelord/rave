@@ -13,15 +13,15 @@ button.type = 'button';
 var authDiv = document.createElement('div');
 authDiv.appendChild(input);
 authDiv.appendChild(button);
-authDiv.id = "authDiv";
+authDiv.id = 'authDiv';
 
 /* Handles password setup
 */
 socket.on('setup', ()=>{
-    button.value = "set pass";
+    button.value = 'set pass';
     document.body.appendChild(authDiv);
 
-    button.addEventListener("click", ()=>{
+    button.addEventListener('click', ()=>{
         socket.emit('setup', window.btoa(input.value));
         location.reload();
     });
@@ -30,16 +30,16 @@ socket.on('setup', ()=>{
 /* Handles password
 */
 socket.on('auth', ()=>{
-    button.value = "login"
+    button.value = 'login'
     document.body.appendChild(authDiv);
 
-    button.addEventListener("click", ()=>{
+    button.addEventListener('click', ()=>{
         socket.emit('auth', window.btoa(input.value), (data) => {
             if(data){
                 document.getElementById('streamControls').classList.remove('hidden');
                 authDiv.classList.add('hidden');
             } else {
-                alert("wrong password, don't be a 1337 haxor pls");
+                alert('wrong password, don\'t be a 1337 haxor pls');
             }
         })
     });
@@ -64,10 +64,10 @@ var listDevices = (devices) => {
     let select = document.getElementById('sources');
     for(let i = 0; i < devices.length; i++) {
         let device = devices[i];
-        if(device.kind === "audioinput"){
-            let option = document.createElement("option");
+        if(device.kind === 'audioinput'){
+            let option = document.createElement('option');
             option.value = device.deviceId;
-            option.text = device.label || "microphone " + (select.length + 1);
+            option.text = device.label || 'microphone ' + (select.length + 1);
             select.appendChild(option);
         }
     }
@@ -179,20 +179,20 @@ if(gumCheck()){
  * @param {*} err 
  */
 var errHandler = (err) => {
-    console.log("error: " + err);
+    console.log('error: ' + err);
 }
 
 //Does everything (like handling stream status)
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("streamBtn").addEventListener("click", (e) => {
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('streamBtn').addEventListener('click', (e) => {
         e.preventDefault();
         if(streamOn === 0){
             socket.emit('stream-start', (data) => {
                 if(data === true){
                     streamOn = true;
                     getStream();
-                    document.getElementById("liveIndicator").classList.add('on');
-                    document.getElementById("liveIndicator").classList.remove('off');
+                    document.getElementById('liveIndicator').classList.add('on');
+                    document.getElementById('liveIndicator').classList.remove('off');
                     return;
                 }
                 else{
@@ -202,13 +202,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         if(!streamOn) {
-            document.getElementById("liveIndicator").classList.add('on');
-            document.getElementById("liveIndicator").classList.remove('off');
+            document.getElementById('liveIndicator').classList.add('on');
+            document.getElementById('liveIndicator').classList.remove('off');
             socket.emit('stream-start', (data) => {
                 if(data === true){
                     streamOn = true;
-                    document.getElementById("liveIndicator").classList.add('on');
-                    document.getElementById("liveIndicator").classList.remove('off');
+                    document.getElementById('liveIndicator').classList.add('on');
+                    document.getElementById('liveIndicator').classList.remove('off');
                     return;
                 }
                 else{
@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
         else {
-            document.getElementById("liveIndicator").classList.add('off');
-            document.getElementById("liveIndicator").classList.remove('on');
+            document.getElementById('liveIndicator').classList.add('off');
+            document.getElementById('liveIndicator').classList.remove('on');
             socket.emit('stream-end')
             streamOn = false;
         }

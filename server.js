@@ -16,21 +16,25 @@ var env = process.env;
 app.use(express.static('public'));
 
 var backEndChannel = io.of('/backend');
+var listenChannel = io.of('/play');
 
 var currentBroadcast = null;
 var authorized = {};
 
+var totalListeners = 0;
+var currentListeners = 0;
+
 backEndChannel.on('connection', (socket) => {
     console.log('new connection to backend');
 
-    fs.readFile("./hash.json", (err, data) => {
+    fs.readFile('./hash.json', (err, data) => {
         if(err) {
             socket.disconnect(true);
             return;
         }
         
         let hashJSON = JSON.parse(data);
-        if("hash" in hashJSON && "salt" in hashJSON) {
+        if('hash' in hashJSON && 'salt' in hashJSON) {
             console.log(socket.id + ' starting login process');
             socket.emit('auth');
         }
@@ -41,7 +45,7 @@ backEndChannel.on('connection', (socket) => {
     });
 
     socket.on('auth', (inData, fn) => {
-        fs.readFile("./hash.json", (err, data) => {
+        fs.readFile('./hash.json', (err, data) => {
             if(err) {
                 console.log('oops');
                 throw err;
@@ -71,7 +75,7 @@ backEndChannel.on('connection', (socket) => {
         let pwd = new Buffer.from(inData, 'base64').toString();
         let hash = crypto.createHmac('sha256', env.SECRET).update(pwd + salt).digest('hex');
 
-        fs.readFile("./hash.json", (err, data) => {
+        fs.readFile('./hash.json', (err, data) => {
             if(err) {
                 console.log('oops');
                 throw err;
@@ -79,7 +83,7 @@ backEndChannel.on('connection', (socket) => {
 
             let hashJSON = JSON.parse(data);
             
-            if(!("hash" in hashJSON) && !("salt" in hashJSON)) {
+            if(!('hash' in hashJSON) && !('salt' in hashJSON)) {
                 fs.writeFile('hash.json', JSON.stringify({'hash': hash, 'salt': salt}), (err) => {
                     if(err){
                         console.log('Oops');
@@ -115,23 +119,20 @@ backEndChannel.on('connection', (socket) => {
     })
 
     socket.on('stream-end', () => {
-        console.log("Stream ended");
+        console.log('Stream ended');
         if(socket.id == currentBroadcast && socket.id in authorized) {
             currentBroadcast = null;
         }
     });
 
     socket.on('disconnect', () => {
-        console.log("Stream " + socket.id + " disconnected");
+        console.log('Stream ' + socket.id + ' disconnected');
         if(socket.id == currentBroadcast && socket.id in authorized) {
             currentBroadcast = null;
         }
         delete authorized[socket.id];
     });
 });
-
-var listenChannel = io.of('/play');
-var totalListeners = currentListeners = 0;
 
 listenChannel.on('connect', (socket) => {
     totalListeners++;
@@ -146,24 +147,24 @@ listenChannel.on('connect', (socket) => {
     })
 });
 
-app.get("/", (req, resp) => {
+app.get('/', (req, resp) => {
     resp.sendFile(__dirname + '/views/play.html');
 });
 
-app.get("/backend", (req, resp) => {
-    resp.sendFile(__dirname + "/views/backend.html");
+app.get('/backend', (req, resp) => {
+    resp.sendFile(__dirname + '/views/backend.html');
 });
 
-app.get("/play", (req, resp) => {
-    resp.sendFile(__dirname + "/views/play.html");
+app.get('/play', (req, resp) => {
+    resp.sendFile(__dirname + '/views/play.html');
 });
 
-app.get("/listen", (req, resp) => {
-    resp.sendFile(__dirname + "/views/play.html");
+app.get('/listen', (req, resp) => {
+    resp.sendFile(__dirname + '/views/play.html');
 });
 
 var listener = http.listen(env.PORT,
     () => {
-        console.log("server listening on " + listener.address().address + ":" + listener.address().port);
+        console.log('server listening on ' + listener.address().address + ':' + listener.address().port);
     }
 )

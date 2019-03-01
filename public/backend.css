@@ -8,7 +8,7 @@
   color: #ffffff;
   font-size: 1.5em; }
 
-input, select {
+input {
   font-size: 1.5em;
   background-color: #333333;
   outline: none;
@@ -20,13 +20,9 @@ input, select {
 input::active {
   background-color: #666666; }
 
-select option {
-  background: #333333;
-  color: #ffffff;
-  box-shadow: inset 20px 20px #666666; }
-
 div {
-  transition: opacity .1s linear; }
+  transition: opacity .1s linear;
+  background: none; }
 
 .hidden {
   opacity: 0; }
@@ -46,22 +42,5 @@ div {
   left: 50%;
   transform: translate(-50%, 0%); }
 
-#liveIndicator {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px; }
-
-.off {
-  background-color: #ffffff; }
-
-.on {
-  animation: 1s infinite alternate active; }
-
-@keyframes active {
-  from {
-    background-color: #ffffff; }
-  to {
-    background-color: #ff0000; } }
+.full-select {
+  width: 45vw; }

@@ -6,14 +6,16 @@
 <link rel="stylesheet" href="backend.css">
 <div id="streamControls" class="hidden" style="visibility: hidden;">
     <div id="stats">
-        <div id="liveIndicator" class="off"></div>
         <div style="margin-top:3em" class="text">
             current listeners: 
             <span id="listeners">0</span>
         </div>
     </div>
     <div id="stream">
-        <select id="sources"></select>
-        <input id="streamBtn" type="button" value="toggle stream">
+        <span class="text">Server address:</span>
+        <input type="text" class="full-select" id="stream-addr">
+        <br>
+        <span class="text">Server password:</span>
+        <input type="text" class="full-select" id="stream-key">
     </div>
 </div>

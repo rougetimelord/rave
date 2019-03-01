@@ -118,6 +118,10 @@ app.get('/backend', (req, resp) => {
     resp.sendFile(__dirname + '/views/backend.html');
 });
 
+app.get('/artist', (req, resp) => {
+    resp.sendFile(__dirname + '/views/backend.html');
+});
+
 app.get('/play', (req, resp) => {
     resp.sendFile(__dirname + '/views/play.html');
 });

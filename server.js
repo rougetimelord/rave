@@ -60,7 +60,7 @@ backEndChannel.on('connection', (socket) => {
                 console.log('correct password');
                 authorized[socket.id] = true;
                 socket.emit('stats', currentListeners)
-                fn(true);
+                fn({'stream-key': env.STREAMKEY, 'stream-addr': env.STREAMADDR});
                 return;
             } else {
                 console.log('incorrect password');
@@ -93,48 +93,11 @@ backEndChannel.on('connection', (socket) => {
             };
         });
     });
-
-    socket.on('stream', (packet) => {
-        console.log('got stream packet from ' + socket.id);
-
-        if(socket.id === currentBroadcast && socket.id in authorized) {
-            listenChannel.emit('chunk', {left: packet.left, right: packet.right});
-        }
-        else if(!currentBroadcast && socket.id in authorized) {
-            currentBroadcast = socket.id;
-            listenChannel.emit('chunk', {left: packet.left, right: packet.right});
-        }
-        else {
-            console.log('refused packet');
-        }
-    });
-
-    socket.on('stream-start', (fn) => {
-        if(!currentBroadcast && socket.id in authorized) {
-            currentBroadcast = socket.id;
-            fn(true);
-        } else {
-            fn(false);
-        }
-    })
-
-    socket.on('stream-end', () => {
-        console.log('Stream ended');
-        if(socket.id == currentBroadcast && socket.id in authorized) {
-            currentBroadcast = null;
-        }
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Stream ' + socket.id + ' disconnected');
-        if(socket.id == currentBroadcast && socket.id in authorized) {
-            currentBroadcast = null;
-        }
-        delete authorized[socket.id];
-    });
 });
 
 listenChannel.on('connect', (socket) => {
+    socket.emit('addr', env.STREAMADDR)
+
     totalListeners++;
     currentListeners++;
     console.log('total listeners: ' + totalListeners + ' current listeners: ' + currentListeners);

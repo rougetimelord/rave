@@ -1,12 +1,45 @@
 <!DOCTYPE html>
-<title>rave.</title>
-<link rel="icon" href="logo32.png">
-<script src="/socket.io/socket.io.js"></script>
-<script src="/client.js"></script>
-<link rel="stylesheet" href="frontend.css">
-<div class="centered">
-    <img class="logo img" id="logo" src="logo.svg"></img>
-    <div class="logo text">rave.</div>
-    <div class="text clickThrough" id="tagline">click to start listening!</div>
-    <div class="clickIn hidden stopBtn" id="control" style="visibility: hidden;"></div>
-</div>
+<html lang="en" prefix="og: http://ogp.me/ns# music:  http://ogp.me/ns/music#">
+    <head>
+        <title>rave.</title>
+    
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
+        <meta name="robots" content="index, follow">
+    
+        <meta name="theme-color" content="#FFFF43">
+        <meta name="referrer" content="no-referrer">
+    
+        <meta name="description" content="an internet bedroom rave">
+    
+        <!--Facebook open graph tags-->
+        <meta property="og:title" content="rave.">
+        <meta property="og:type" content="music.radio_station">
+        <meta property="music:creator:first_name" content="_caffeinu">
+        <meta property="music:creator:last_name" content="">
+        <meta property="music:creator:username" content="_caffeinu">
+        <meta property="music:creator:gender" content="female">
+        <meta property="og:url" content="https://rave.r0uge.org">
+        <meta property="og:image" content="https://rave.r0uge.org/logo.png">
+        <meta property="og:description" content="an internet bedroom rave">
+
+        <link rel="icon" href="/logo32.png">
+        
+        <link rel="preload" href="/frontend.css" as="style">
+        <link rel="preload" href="/socket.io/socket.io.js" as="script">
+        <link rel="preload" href="/client.js" as="script">
+    
+        <link rel="stylesheet" href="/frontend.css">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/client.js"></script>
+    </head>
+
+    <body>
+        <div class="centered">
+            <img class="logo img" id="logo" src="logo.svg" alt="logo, a hazard diamond with a yellow smiley face"></img>
+            <div class="logo text">rave.</div>
+            <div class="text clickThrough" id="tagline">click to start listening!</div>
+            <div class="clickIn hidden stopBtn" id="control" style="visibility: hidden; opacity: 0;"></div>
+        </div>
+    </body>
+</html>

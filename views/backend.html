@@ -1,21 +1,39 @@
 <!DOCTYPE html>
-<title>rave. backend</title>
-<link rel="icon" href="logo32.png">
-<script src="/socket.io/socket.io.js"></script>
-<script src="backend.js"></script>
-<link rel="stylesheet" href="backend.css">
-<div id="streamControls" class="hidden" style="visibility: hidden;">
-    <div id="stats">
-        <div style="margin-top:3em" class="text">
-            current listeners: 
-            <span id="listeners">0</span>
+<head>
+    <title>rave. backend</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.5">
+    <meta name="robots" content="none, noindex, nofollow">
+
+    <meta name="theme-color" content="#FFFF43">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="icon" href="logo32.png">
+
+    <link rel="preload" href="/backend.css" as="style">
+    <link rel="preload" href="/socket.io/socket.io.js" as="script">
+    <link rel="preload" href="/backend.js" as="script">
+
+    <link rel="stylesheet" href="/backend.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/backend.js"></script>
+</head>
+<body>
+    <div id="streamControls" class="hidden" style="visibility: hidden; opacity: 0;">
+        <div id="stats">
+            <div style="margin-top:3em" class="text">
+                current listeners: 
+                <span id="listeners">0</span>
+            </div>
+        </div>
+
+        <div id="stream">
+            <span class="text">Server address:</span>
+            <input type="text" class="full-select" id="stream-addr">
+            <br>
+            <span class="text">Server password:</span>
+            <input type="text" class="full-select" id="stream-key">
         </div>
     </div>
-    <div id="stream">
-        <span class="text">Server address:</span>
-        <input type="text" class="full-select" id="stream-addr">
-        <br>
-        <span class="text">Server password:</span>
-        <input type="text" class="full-select" id="stream-key">
-    </div>
-</div>
+</body>

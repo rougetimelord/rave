@@ -1,5 +1,59 @@
 var socket = io('/play');
 var paused = false;
+var draw, logo, defaultR = 39.309525;
+var samples = [0], animID = 0;
+
+let arrayAvg = arr => {
+    let sum = arr.reduce(function(a, b) { return a + b; });
+    return sum / arr.length;
+};
+
+var attachAttributes = (e, attrs) => {
+    for(let key in attrs) {
+        e.setAttribute(key, attrs[key]);
+    }
+}
+
+/**
+ * Updates and draws visuals.
+ * 
+ * @param {analyserNode} analyser The analyser node to get data from
+ */
+var analyserUpdate = (analyser) => {
+    let array = new Float32Array(analyser.frequencyBinCount);
+    analyser.getFloatFrequencyData(array);
+
+    let avg = arrayAvg(array);
+    let rollingAvg = arrayAvg(samples);
+
+    let faceValue = 
+        defaultR + ((avg == -Infinity) ? 0 : avg - rollingAvg) / 7.5;
+    faceValue = (faceValue < 25) ? 25 : faceValue;
+    faceValue = (faceValue > 43) ? 43 : faceValue;
+
+    let teeth = logo.getElementsByClassName("tooth");
+    if(Math.abs(((avg == -Infinity) ? 0 : avg - rollingAvg) / rollingAvg) > 0.1){
+        for(let i = 0; i < teeth.length; i++){
+            attachAttributes(teeth[i], {
+                "fill": "#ff4343",
+                "stroke": "#ff4343"
+            });
+        }
+    } else {
+        for(let i = 0; i < teeth.length; i++){
+            attachAttributes(teeth[i], {
+                "fill": "#000",
+                "stroke": "#000"
+            });
+        }
+    }
+
+    let face = logo.getElementById("face");
+    face.setAttribute('r', faceValue.toString());
+
+    if(samples.push(avg) > 10){samples.shift()};
+    draw = requestAnimationFrame(()=>{analyserUpdate(analyser)});
+}
 
 /**
  * Starts the web audio context and returns it for later.
@@ -11,6 +65,8 @@ var main = () => {
     audioElement.crossOrigin = "anonymous";
 
     let analyser = ctx.createAnalyser();
+    analyser.fftSize = 1024;
+    analyser.smoothingTimeConstant = 0.3;
 
     //Set up literally all of the key value pairs that we need (just in case)
     return {'context': ctx, 'element': audioElement, 'analyser': analyser,
@@ -26,7 +82,7 @@ var main = () => {
  * once I pass in pointers to everything audio related and return a function
  * that gets called for every event.
  * 
- * @param {context, audio element, analyser, source node, src} nodes 
+ * @param {audioContext, audio element, analyser, source node, src} nodes 
  */
 let stopListener = (nodes) => {
     return () => {
@@ -93,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             audioNodes['context'].resume();
             audioNodes['element'].play();
+
+            logo = document.getElementById("logo").contentDocument;
+
+            analyserUpdate(audioNodes['analyser']);
         }
     );
 
@@ -106,7 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
          */
         (data) => {
             //We add all of this to bypass browser detection.
-            let addr = data + '/;?type=http&nocache=3';
+            // let addr = data + '/;?type=http&nocache=3';
+            let addr = "song.mp3";
+            audioNodes['element'].loop = !0;
 
             //Feed the audio element its source.
             audioNodes['src'] = addr;

@@ -3,11 +3,24 @@ var paused = false;
 var draw, logo, defaultR = 39.309525;
 var samples = [0], animID = 0;
 
+/**
+ * A helper function that returns the average of an array.
+ * 
+ * @param {Number[]} arr The array of numbers to be averaged.
+ */
 let arrayAvg = arr => {
     let sum = arr.reduce(function(a, b) { return a + b; });
     return sum / arr.length;
 };
 
+/**
+ * A helper function to batch add attributes to a node.
+ * 
+ * @param {HTMLElement|SVGElement} e The DOM or SVG node to add attributes 
+ *                                   to
+ * @param {Object.<string,string>} attrs An object of attribute names and 
+ *                                       values
+ */
 var attachAttributes = (e, attrs) => {
     for(let key in attrs) {
         e.setAttribute(key, attrs[key]);
@@ -17,46 +30,59 @@ var attachAttributes = (e, attrs) => {
 /**
  * Updates and draws visuals.
  * 
- * @param {analyserNode} analyser The analyser node to get data from
+ * @param {AnalyserNode} analyser The analyser node to get data from
  */
 var analyserUpdate = (analyser) => {
+    //Get the data needed
     let array = new Float32Array(analyser.frequencyBinCount);
     analyser.getFloatFrequencyData(array);
 
+    //Average the past and cureent data
     let avg = arrayAvg(array);
     let rollingAvg = arrayAvg(samples);
 
+    //Calculate the face's new radius within bounds (25 - 43)
     let faceValue = 
         defaultR + ((avg == -Infinity) ? 0 : avg - rollingAvg) / 7.5;
     faceValue = (faceValue < 25) ? 25 : faceValue;
     faceValue = (faceValue > 43) ? 43 : faceValue;
 
+    /* Change teeth to a different color if theres more than a 25% difference
+    between now and the past */
     let teeth = logo.getElementsByClassName("tooth");
-    if(Math.abs(((avg == -Infinity) ? 0 : avg - rollingAvg) / rollingAvg) > 0.1){
-        for(let i = 0; i < teeth.length; i++){
-            attachAttributes(teeth[i], {
-                "fill": "#ff4343",
-                "stroke": "#ff4343"
-            });
-        }
+    if(Math.abs(
+        ((avg == -Infinity) ? 0 : avg - rollingAvg) / rollingAvg
+    ) > 0.25){
+            for(let i = 0; i < teeth.length; i++){
+                attachAttributes(teeth[i], {
+                    "fill": "#ff4343",
+                    "stroke": "#ff4343"
+                });
+            }
     } else {
-        for(let i = 0; i < teeth.length; i++){
-            attachAttributes(teeth[i], {
-                "fill": "#000",
-                "stroke": "#000"
-            });
-        }
+            for(let i = 0; i < teeth.length; i++){
+                attachAttributes(teeth[i], {
+                    "fill": "#000",
+                    "stroke": "#000"
+                });
+            }
     }
 
+    //Change the radius
     let face = logo.getElementById("face");
     face.setAttribute('r', faceValue.toString());
 
+    //Push this average on to the stack
     if(samples.push(avg) > 10){samples.shift()};
+
+    //Call recursively
     draw = requestAnimationFrame(()=>{analyserUpdate(analyser)});
 }
 
 /**
  * Starts the web audio context and returns it for later.
+ * 
+ * @returns {{"analyser": AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes
  */
 var main = () => {
     let ctx = new AudioContext();
@@ -82,7 +108,10 @@ var main = () => {
  * once I pass in pointers to everything audio related and return a function
  * that gets called for every event.
  * 
- * @param {audioContext, audio element, analyser, source node, src} nodes 
+ * @param {{"analyser": AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes 
+ *          The collection of items needed to make stuff work.
+ * 
+ * @returns {Function} The actual stop button listener.
  */
 let stopListener = (nodes) => {
     return () => {
@@ -94,6 +123,8 @@ let stopListener = (nodes) => {
         if(paused){
             nodes['element'].pause();
             nodes['element'].src = '';
+            //Stop drawing visuals when nothing is playing.
+            window.cancelAnimationFrame(draw);
         } else {
             nodes['element'].src = nodes['src'];
             nodes['element'].addEventListener('canplay',
@@ -104,9 +135,11 @@ let stopListener = (nodes) => {
                  * infinitely lagged during pauses.
                  */
                 function resumeAudio(){
-                    nodes['element'].removeEventListener('canplay', resumeAudio);
-
+                    nodes['element'].removeEventListener('canplay', 
+                        resumeAudio);
                     nodes['element'].play();
+                    //Restart visuals
+                    analyserUpdate(nodes['analyser']);
                 }
             );
         }
@@ -114,9 +147,7 @@ let stopListener = (nodes) => {
 }
 
 
-/**
- * Gotta wait for the DOM to be ready :'(
- */
+// Gotta wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
     //The document starts with some elements with inline CSS, so get rid of that
     let removeStyle = document.getElementsByClassName('hidden');
@@ -157,18 +188,22 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     //Register the stop button listener.
-    document.getElementById('control').addEventListener('click', stopListener(audioNodes));
+    document.getElementById('control').addEventListener('click', 
+                                        stopListener(audioNodes));
 
     //Wait for the stream address from the server
     socket.on('addr', 
         /**
          * Just grabs the address shoves it into the audio element and goes.
+         * 
+         * @param {String} data The address to get audio from.
          */
         (data) => {
             //We add all of this to bypass browser detection.
-            // let addr = data + '/;?type=http&nocache=3';
+            let addr = data + '/;?type=http&nocache=3';
+            /* //Testing code
             let addr = "song.mp3";
-            audioNodes['element'].loop = !0;
+            audioNodes['element'].loop = !0; */
 
             //Feed the audio element its source.
             audioNodes['src'] = addr;
@@ -184,17 +219,20 @@ document.addEventListener('DOMContentLoaded', () => {
                  * destination.
                  */
                 function startPlay() {
-                    audioNodes['element'].removeEventListener('canplay', startPlay);
+                    audioNodes['element'].removeEventListener(
+                        'canplay', startPlay);
 
-                    let audioSrc = audioNodes['context'].createMediaElementSource(
-                        audioNodes['element']);
+                    let audioSrc = 
+                        audioNodes['context'].createMediaElementSource(
+                            audioNodes['element']);
 
                     //Stow the source just in case.
                     audioNodes['source'] = audioSrc
                     
                     //Connect everything
                     audioSrc.connect(audioNodes['analyser']);
-                    audioNodes['analyser'].connect(audioNodes['context'].destination);
+                    audioNodes['analyser'].connect(
+                        audioNodes['context'].destination);
                 }
             );
         }

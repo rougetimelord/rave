@@ -58,3 +58,40 @@
 #logo {
   height: 60vmin;
   width: auto; }
+
+.footer {
+  position: absolute;
+  top: 100vh;
+  left: 50vw;
+  transform: translate(-50%, -100%); }
+
+.social-icons {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.social-icons li {
+  display: inline-block; }
+
+.social-icons a {
+  background-image: url("/socialmedia_sprites_small.png");
+  background-repeat: no-repeat;
+  display: block;
+  height: 64px;
+  width: 64px;
+  transition: all 350ms ease-in-out; }
+
+.social-icons a:hover {
+  opacity: 0.8; }
+
+.social-icons a:active {
+  opacity: 0.5; }
+
+.twitter {
+  background-position: 0 0; }
+
+.soundcloud {
+  background-position: -65px 0; }
+
+.facebook {
+  background-position: -130px 0; }

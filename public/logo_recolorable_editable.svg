@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="750"
+   height="750"
+   viewBox="0 0 198.4375 198.43751"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="logo_recolorable_editable.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:export-filename=""
+   inkscape:export-xdpi="4.6165833"
+   inkscape:export-ydpi="4.6165833">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient4546"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ffffcc;stop-opacity:1;"
+         offset="0"
+         id="stop4544" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="-175.27269"
+     inkscape:cy="482.95195"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     objecttolerance="20"
+     guidetolerance="20"
+     inkscape:snap-intersection-paths="false"
+     inkscape:snap-bbox="false"
+     inkscape:snap-bbox-midpoints="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="71.4375,106.21131"
+       orientation="0,1"
+       id="guide6052"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-98.562483)">
+    <rect
+       id="hazard"
+       width="119.20221"
+       height="119.20221"
+       x="150.40959"
+       y="10.093097"
+       style="stroke-width:5.29166667;fill-opacity:1;fill:#000000;stroke:#ffffff;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linejoin:miter;stroke-linecap:butt;opacity:1"
+       ry="0"
+       transform="rotate(45)" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="faceBack"
+       cx="99.21875"
+       cy="200.2995"
+       r="39.309525">
+      <desc
+         id="desc843">Back of face</desc>
+    </circle>
+    <g
+       id="faceFore">
+      <desc
+         id="desc841">Eyes and mouth</desc>
+      <title
+         id="title839">faceFor</title>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6042"
+         d="m 75.784232,205.74755 c 0,32.11825 46.491068,31.1595 46.869048,0"
+         style="fill:none;stroke:#000000;stroke-width:2.51989167;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <ellipse
+         ry="11.339286"
+         rx="5.1026788"
+         cy="190.78868"
+         cx="85.611603"
+         id="path6044"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         transform="scale(-1)"
+         ry="11.339286"
+         rx="5.1026788"
+         cy="-190.78868"
+         cx="-113.20387"
+         id="ellipse6048"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6054"
+         d="m 112.26131,225.25449 4.75626,3.26992 -0.8918,-6.53983 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.20808624px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.17418788px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 85.379396,226.20082 -3.981441,2.73723 0.746522,-5.47445 z"
+         id="path6056"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 74.177834,204.57917 c 0,1.98438 3.212796,1.32292 3.212796,0.0945"
+       id="path6060"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path6062"
+       d="m 121.04688,204.91826 c 0,1.98438 3.2128,1.32292 3.2128,0.0945"
+       style="fill:none;stroke:#000000;stroke-width:0.79374999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

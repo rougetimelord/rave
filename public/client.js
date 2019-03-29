@@ -146,6 +146,29 @@ let stopListener = (nodes) => {
     }
 }
 
+/**
+ * Sends the message to the server.
+ * 
+ * @param {MouseEvent} event The event that got triggered.
+ */
+let sendMessage = (event) => {
+    event.preventDefault();
+
+    let input = document.getElementById("msg");
+    let message = input.value;
+
+    if(message !== ""){
+        socket.emit('msg', message);
+
+        input.value = "";
+    } else {
+        input.classList.add('empty');
+
+        setTimeout( () => {
+            input.classList.remove('empty');
+        }, 500);
+    }
+}
 
 // Gotta wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -191,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('control').addEventListener('click', 
                                         stopListener(audioNodes));
 
+    document.getElementById("send").addEventListener("click", sendMessage);
+
     //Wait for the stream address from the server
     socket.on('addr', 
         /**
@@ -235,6 +260,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         audioNodes['context'].destination);
                 }
             );
+        }
+    );
+
+    socket.on('msg',
+        /**
+         * This is where I would put the cool effects if I had em.
+         * 
+         * @param {String} data The message sent.
+         */
+        (data) => {
+            console.log(data)
         }
     );
 });

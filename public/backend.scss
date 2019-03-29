@@ -19,7 +19,7 @@ input{
     border: 1px solid #444444;
     border-radius: 5px 0px 5px 0px;
 }
-input::active{
+input:active{
     background-color: #666666;
 }
   
@@ -39,7 +39,7 @@ div {
     transform: translate(-50%, -50%);
 }
 
-::placeholder {
+input::placeholder {
     color: #ffffff;
 }
 

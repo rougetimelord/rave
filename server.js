@@ -9,7 +9,7 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 var crypto = require('crypto');
 //Load dot env for hash
-require('dotenv').load();
+require('dotenv').config();
 var env = process.env;
 
 //Set up js and css folder.

@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewBox="0 0 198.4375 198.43751">
-  <g transform="translate(0 -98.562483)">
-    <rect width="119.20221" height="119.20221" x="150.40959" y="10.093097" stroke="#fff" stroke-width="5.29166667" ry="0" transform="rotate(45)"/>
-    <circle cx="99.21875" cy="200.2995" r="39.309525" fill="#fff"/>
-    <path fill="none" stroke="#000" stroke-width="2.51989167" d="M75.784232 205.74755c0 32.11825 46.491068 31.1595 46.869048 0"/>
-    <ellipse cx="85.611603" cy="190.78868" rx="5.1026788" ry="11.339286"/>
-    <ellipse cx="-113.20387" cy="-190.78868" rx="5.1026788" ry="11.339286" transform="scale(-1)"/>
-    <path stroke="#000" stroke-width=".20808624px" d="M112.26131 225.25449l4.75626 3.26992-.8918-6.53983z"/>
-    <path stroke="#000" stroke-width=".17418788px" d="M85.379396 226.20082l-3.981441 2.73723.746522-5.47445z"/>
-    <path fill="none" stroke="#000" stroke-width=".79375" d="M74.177834 204.57917c0 1.98438 3.212796 1.32292 3.212796.0945"/>
-    <path fill="none" stroke="#000" stroke-width=".79374999" d="M121.04688 204.91826c0 1.98438 3.2128 1.32292 3.2128.0945"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewBox="0 0 198.438 198.438"><g transform="translate(0 -98.562483)"><rect width="119.202" height="119.202" x="150.41" y="10.093" stroke="#fff" stroke-width="5.292" ry="0" transform="rotate(45)"/><circle cx="99.219" cy="200.299" r="39.31" fill="#fff"/><path fill="none" stroke="#000" stroke-width="2.52" d="M75.784232 205.74755c0 32.11825 46.491068 31.1595 46.869048 0"/><ellipse cx="85.612" cy="190.789" rx="5.103" ry="11.339"/><ellipse cx="-113.204" cy="-190.789" rx="5.103" ry="11.339" transform="scale(-1)"/><path stroke="#000" stroke-width=".208" d="M112.26131 225.25449l4.75626 3.26992-.8918-6.53983z"/><path stroke="#000" stroke-width=".174" d="M85.379396 226.20082l-3.981441 2.73723.746522-5.47445z"/><path fill="none" stroke="#000" stroke-width=".794" d="M74.177834 204.57917c0 1.98438 3.212796 1.32292 3.212796.0945"/><path fill="none" stroke="#000" stroke-width=".794" d="M121.04688 204.91826c0 1.98438 3.2128 1.32292 3.2128.0945"/></g></svg>

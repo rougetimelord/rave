@@ -49,27 +49,27 @@ var analyserUpdate = (analyser) => {
 
     /* Change teeth to a different color if theres more than a 25% difference
     between now and the past */
-    let teeth = logo.getElementsByClassName("tooth");
+    let teeth = logo.getElementsByClassName('tooth');
     if(Math.abs(
         ((avg == -Infinity) ? 0 : avg - rollingAvg) / rollingAvg
     ) > 0.25){
             for(let i = 0; i < teeth.length; i++){
                 attachAttributes(teeth[i], {
-                    "fill": "#ff4343",
-                    "stroke": "#ff4343"
+                    'fill': '#ff4343',
+                    'stroke': '#ff4343'
                 });
             }
     } else {
             for(let i = 0; i < teeth.length; i++){
                 attachAttributes(teeth[i], {
-                    "fill": "#000",
-                    "stroke": "#000"
+                    'fill': '#000',
+                    'stroke': '#000'
                 });
             }
     }
 
     //Change the radius
-    let face = logo.getElementById("face");
+    let face = logo.getElementById('face');
     face.setAttribute('r', faceValue.toString());
 
     //Push this average on to the stack
@@ -82,13 +82,13 @@ var analyserUpdate = (analyser) => {
 /**
  * Starts the web audio context and returns it for later.
  * 
- * @returns {{"analyser": AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes
+ * @returns {{'analyser': AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes
  */
 var main = () => {
     let ctx = new AudioContext();
 
     let audioElement = new Audio();
-    audioElement.crossOrigin = "anonymous";
+    audioElement.crossOrigin = 'anonymous';
 
     let analyser = ctx.createAnalyser();
     analyser.fftSize = 1024;
@@ -108,7 +108,7 @@ var main = () => {
  * once I pass in pointers to everything audio related and return a function
  * that gets called for every event.
  * 
- * @param {{"analyser": AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes 
+ * @param {{'analyser': AnalyserNode, 'element': HTMLAudioElement, 'src': String, 'context': AudioContext, 'source': MediaElementAudioSourceNode}} nodes 
  *          The collection of items needed to make stuff work.
  * 
  * @returns {Function} The actual stop button listener.
@@ -147,26 +147,28 @@ let stopListener = (nodes) => {
 }
 
 /**
- * Sends the message to the server.
+ * Sends the chat message to the server.
  * 
  * @param {MouseEvent} event The event that got triggered.
  */
 let sendMessage = (event) => {
     event.preventDefault();
-
-    let input = document.getElementById("msg");
-    let message = input.value;
-
-    if(message !== ""){
-        socket.emit('msg', message);
-
-        input.value = "";
-    } else {
-        input.classList.add('empty');
-
-        setTimeout( () => {
-            input.classList.remove('empty');
-        }, 500);
+    console.log(event)
+    if(typeof(event.keyCode) == 'undefined' || event.keyCode === 13){
+        let input = document.getElementById('msg');
+        let message = input.value;
+    
+        if(message !== '') {
+            socket.emit('msg', message);
+    
+            input.value = '';
+        } else {
+            input.classList.add('empty');
+    
+            setTimeout( () => {
+                input.classList.remove('empty');
+            }, 2000);
+        }
     }
 }
 
@@ -185,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click',
         /**
          * This function is necessary so that we can pass chrome's autoplay
-         * policy. It also changes element visiblity from fresh load to 
+         * policy. It also changes element visibility from fresh load to 
          * playing.
          */
         function clickListener(){
@@ -204,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audioNodes['context'].resume();
             audioNodes['element'].play();
 
-            logo = document.getElementById("logo").contentDocument;
+            logo = document.getElementById('logo').contentDocument;
 
             analyserUpdate(audioNodes['analyser']);
         }
@@ -214,7 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('control').addEventListener('click', 
                                         stopListener(audioNodes));
 
-    document.getElementById("send").addEventListener("click", sendMessage);
+    document.getElementById('send').addEventListener('click', sendMessage);
+    document.getElementById('msg').addEventListener('keyup', sendMessage);
 
     //Wait for the stream address from the server
     socket.on('addr', 
@@ -225,10 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
          */
         (data) => {
             //We add all of this to bypass browser detection.
-            let addr = data + '/;?type=http&nocache=3';
-            /* //Testing code
-            let addr = "song.mp3";
-            audioNodes['element'].loop = !0; */
+            // let addr = data + '/;?type=http&nocache=3';
+
+            //Testing code
+            let addr = 'song.mp3';
+            audioNodes['element'].loop = !0;
 
             //Feed the audio element its source.
             audioNodes['src'] = addr;
@@ -270,7 +274,13 @@ document.addEventListener('DOMContentLoaded', () => {
          * @param {String} data The message sent.
          */
         (data) => {
-            console.log(data)
+            let message = document.createElement('div');
+            message.classList.add('chat_msg', 'rtl');
+            message.innerText = data;
+            message.style.setProperty('--transition-time', (Math.random() * 7 + 3) + 's')
+            message.style.setProperty('--chat-top', Math.floor(Math.random() * 55 + 5) + 'vh')
+            message.style.setProperty('--chat-size', (Math.random() + 1.5) + 'rem')
+            document.body.appendChild(message);
         }
     );
 });

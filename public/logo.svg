@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/2000/xlink" width="750" height="750" viewBox="0 0 198.4375 198.43751">
-  <g transform="translate(0 -98.562)">
-    <rect id="hazard" width="119.20221" height="119.20221" x="150.40959" y="10.093097" fill="#000006" stroke="#fff" stroke-width="5.29166667" ry="0" transform="rotate(45)"/>
-    <circle id="face" cx="99.21875" cy="200.2995" r="39.309525" fill="#ffff43"/>
-    <path class="tooth" fill="#000000" stroke="#000" stroke-width=".20808624px" d="M112.261 225.254l4.757 3.27-.892-6.54z"/>
-    <path class="tooth" fill="#000000" stroke="#000" stroke-width=".20808624px" d="M85.38 226.2l-3.982 2.738.746-5.474z"/>
-    <path fill="none" stroke="#000" stroke-width="2.51989167" d="M75.784 205.748c0 32.118 46.491 31.16 46.87 0"/>
-    <ellipse cx="85.611603" cy="190.78868" fill="#000500" rx="5.1026788" ry="11.339286"/>
-    <ellipse cx="-113.20387" cy="-190.78868" fill="#000500" rx="5.1026788" ry="11.339286" transform="scale(-1)"/>
-    <path fill="none" stroke="#000" stroke-width=".79375" d="M74.178 204.58c0 1.984 3.213 1.322 3.213.094"/>
-    <path fill="none" stroke="#000" stroke-width=".79374999" d="M121.047 204.918c0 1.985 3.213 1.323 3.213.095"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/2000/xlink" width="750" height="750" viewBox="0 0 198.438 198.438"><g transform="translate(0 -98.562)"><rect id="hazard" width="119.202" height="119.202" x="150.41" y="10.093" fill="#000006" stroke="#fff" stroke-width="5.292" ry="0" transform="rotate(45)"/><circle id="face" cx="99.219" cy="200.299" r="39.31" fill="#ffff43"/><path fill="#000" stroke="#000" stroke-width=".208" d="M112.261 225.254l4.757 3.27-.892-6.54z" class="tooth"/><path fill="#000" stroke="#000" stroke-width=".208" d="M85.38 226.2l-3.982 2.738.746-5.474z" class="tooth"/><path fill="none" stroke="#000" stroke-width="2.52" d="M75.784 205.748c0 32.118 46.491 31.16 46.87 0"/><ellipse cx="85.612" cy="190.789" fill="#000500" rx="5.103" ry="11.339"/><ellipse cx="-113.204" cy="-190.789" fill="#000500" rx="5.103" ry="11.339" transform="scale(-1)"/><path fill="none" stroke="#000" stroke-width=".794" d="M74.178 204.58c0 1.984 3.213 1.322 3.213.094"/><path fill="none" stroke="#000" stroke-width=".794" d="M121.047 204.918c0 1.985 3.213 1.323 3.213.095"/></g></svg>

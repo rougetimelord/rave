@@ -37,7 +37,7 @@ var analyserUpdate = (analyser) => {
     let array = new Float32Array(analyser.frequencyBinCount);
     analyser.getFloatFrequencyData(array);
 
-    //Average the past and cureent data
+    //Average the past and current data
     let avg = arrayAvg(array);
     let rollingAvg = arrayAvg(samples);
 

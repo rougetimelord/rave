@@ -1,12 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400i|Roboto');
 
+body {
+    background: #000000;
+}
+
 * {
     text-align: center;
-    background-color: #000000;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
     margin: 0;
     padding: 0;
+}
+
+:root {
+    --transition-time: 5s;
+    --chat-top: 35vh;
+    --chat-size: 2.5rem;
+}
+
+@keyframes rtl{
+    0% {
+        transform: translateX(0%);
+    }
+    100%{
+        
+        transform: translateX(-100vw);
+    }
+}
+
+.chat_msg {
+    position: absolute;
+    z-index: 10;
+    font-size: 2.5rem;
+    font-size: var(--chat-size);
+    top: 35vh;
+    top: var(--chat-top);
+    text-shadow: -3px -3px 0 #000, 3px -3px 0 #000,	-3px 3px 0 #000, 3px 3px 0 #000;
+    &.rtl {
+        right: 0vw;
+        animation: rtl 5s ease-in-out 0s 1 normal forwards;
+        animation: rtl var(--transition-time) ease-in-out 0s 1 normal forwards;
+    }
 }
 
 .text {
@@ -69,6 +103,55 @@
 #logo {
     height: 60vmin;
     width: auto;
+}
+
+#chat {
+    display: inline-flex;
+}
+
+@keyframes dropShadow {
+    0% {
+        box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0);
+    }
+    50% {
+        box-shadow: 0px 0px 5px 3px rgba(125, 0, 0, .75);
+    }
+    100% {
+        box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0);
+    }
+}
+
+.empty {
+    animation: dropShadow 2s ease-out;
+}
+
+#msg {
+    max-width: 50vw;
+    min-width: 25vw;
+}
+
+input {
+    font-size: 1.5em;
+    background-color: #222222;
+    outline: none;
+    margin: 2px;
+    color: #ffffff;
+    border: 1px solid #222222;
+    border-radius: 5px 0px 5px 0px;
+    transition: all 100ms ease-in-out;
+}
+
+input[type="button"] {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+input::placeholder {
+    color: #555555;
+}
+
+input[type="button"]:active {
+    background: #222222;
 }
 
 .footer{

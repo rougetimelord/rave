@@ -98,6 +98,11 @@ backEndChannel.on('connection', (socket) => {
 listenChannel.on('connect', (socket) => {
     socket.emit('addr', env.STREAMADDR)
 
+    socket.on('msg', (data) => {
+        console.log(socket.id + " said: " + data);
+        listenChannel.emit('msg', data);
+    });
+
     totalListeners++;
     currentListeners++;
     console.log('total listeners: ' + totalListeners + ' current listeners: ' + currentListeners);

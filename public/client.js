@@ -228,11 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
          */
         (data) => {
             //We add all of this to bypass browser detection.
-            // let addr = data + '/;?type=http&nocache=3';
+            let addr = data + '/;?type=http&nocache=3';
 
-            //Testing code
+            /* //Testing code
             let addr = 'song.mp3';
-            audioNodes['element'].loop = !0;
+            audioNodes['element'].loop = !0; */
 
             //Feed the audio element its source.
             audioNodes['src'] = addr;
